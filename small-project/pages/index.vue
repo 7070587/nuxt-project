@@ -1,7 +1,7 @@
 <template>
     <div class="home-page">
         <section class="intro">
-            <h1>Get the latest tech news!</h1>
+            <h1>Get the latest nature images!</h1>
         </section>
         <section class="featured-posts">
             <PostPreview
