@@ -4,39 +4,35 @@
             <h1>Get the latest tech news!</h1>
         </section>
         <section class="featured-posts">
-            <nuxt-link
-                :to="'/posts/' + 1"
-                class="post-preview"
-            >
-                <article>
-                    <div
-                        class="post-thumbnail"
-                        style="background-image: url('https://images.unsplash.com/photo-1572006034610-50ea9ffbb314?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80')"
-                    ></div>
-                    <div class="post-content">
-                        <h1>Post Title</h1>
-                        <p>Preview Text</p>
-                    </div>
-                </article>
-            </nuxt-link>
-            <nuxt-link
-                :to="'/posts/' + 2"
-                class="post-preview"
-            >
-                <article>
-                    <div
-                        class="post-thumbnail"
-                        style="background-image: url('https://images.unsplash.com/photo-1606245766933-b194a66b0380?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80')"
-                    ></div>
-                    <div class="post-content">
-                        <h1>Post Title 2</h1>
-                        <p>Preview Text 2</p>
-                    </div>
-                </article>
-            </nuxt-link>
+            <PostPreview
+                id="1"
+                title='How are you'
+                previewText='Wish you'
+                thumbnail='https://images.unsplash.com/photo-1575989356732-a6f467b97e97?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=716&q=80'
+            />
+            <PostPreview
+                id="2"
+                title='3QQQQ'
+                previewText='Thanks a lot'
+                thumbnail='https://images.unsplash.com/photo-1604513644626-182145958737?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80'
+            />
+            <PostPreview
+                id="3"
+                title='Enjoy!'
+                previewText='Have good time'
+                thumbnail='https://images.unsplash.com/photo-1507388412350-cb43abdebced?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80'
+            />
         </section>
     </div>
 </template>
+
+<script>
+import PostPreview from "@/components/Posts/PostPreview.vue";
+
+export default {
+    comments: { PostPreview },
+};
+</script>
 
 <style scoped>
 .intro {
@@ -76,41 +72,5 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-}
-
-.post-preview {
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 2px #ccc;
-    background-color: white;
-    width: 90%;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-@media (min-width: 850px) {
-    .post-preview {
-        width: 400px;
-        margin: 10px;
-    }
-}
-
-.post-thumbnail {
-    width: 100%;
-    height: 200px;
-    background-position: center;
-    background-size: cover;
-}
-
-.post-content {
-    padding: 10px;
-    text-align: center;
-}
-
-a:hover .post-content,
-a:active .post-content {
-    background-color: #ccc;
 }
 </style>
