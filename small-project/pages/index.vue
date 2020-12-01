@@ -22,7 +22,7 @@ export default {
 
     // this asyncData only in nuxt pages
     async asyncData() {
-        return {
+        return await {
             posts: [
                 {
                     id: "1",
