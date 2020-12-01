@@ -58,6 +58,7 @@ export default {
     font-size: 1.3rem;
 }
 
+/* nuxt-link css */
 .logo a {
     text-decoration: none;
     color: white;
