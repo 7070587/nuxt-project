@@ -19,22 +19,33 @@ export default {
     async asyncData(context) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve({});
-            }, 1500);
+                resolve({
+                    postData: {
+                        id: "9",
+                        title: `NO!!!__ ${context.route.params.id}`,
+                        previewText: ">_<",
+                        auther: "sci",
+                        updatedDate: new Date(),
+                        content: "some content text ??",
+                        thumbnail:
+                            "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg",
+                    },
+                });
+            }, 1000);
         }).catch((e) => context.error(new Error()));
 
-        return await {
-            postData: {
-                id: "9",
-                title: `NO!!!__ ${context.route.params.id}`,
-                previewText: ">_<",
-                auther: "sci",
-                updatedDate: new Date(),
-                content: "some content text ??",
-                thumbnail:
-                    "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg",
-            },
-        };
+        // return await {
+        //     postData: {
+        //         id: "9",
+        //         title: `NO!!!__ ${context.route.params.id}`,
+        //         previewText: ">_<",
+        //         auther: "sci",
+        //         updatedDate: new Date(),
+        //         content: "some content text ??",
+        //         thumbnail:
+        //             "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg",
+        //     },
+        // };
     },
 };
 </script>
