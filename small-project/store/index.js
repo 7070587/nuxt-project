@@ -20,9 +20,11 @@ const createStore = () => {
           .catch(e => context.error(e));
 
         const postsArray = [];
-        (Object.keys(data) || []).forEach(key =>
-          postsArray.push({ ...data[key] })
-        );
+        if (data) {
+          (Object.keys(data) || []).forEach(key =>
+            postsArray.push({ ...data[key] })
+          );
+        }
 
         return vuexContext.commit("setPosts", postsArray);
       },
