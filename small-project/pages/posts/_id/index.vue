@@ -17,6 +17,12 @@
 <script>
 export default {
     async asyncData(context) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve({});
+            }, 1500);
+        }).catch((e) => context.error(new Error()));
+
         return await {
             postData: {
                 id: "9",
