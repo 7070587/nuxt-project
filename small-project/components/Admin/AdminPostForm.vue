@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import AppControlInput from "@/components/UI/AppControlInput.vue";
 import AppButton from "@/components/UI/AppButton.vue";
 
@@ -50,8 +52,9 @@ export default {
     methods: {
         onSave() {
             // Save the post
-            console.log(this.editedPost);
+            this.$emit("submit", this.editedPost);
         },
+
         onCancel() {
             // Navigate back
             this.$router.push("/admin");
