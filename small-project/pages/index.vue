@@ -83,8 +83,6 @@ export default {
             ],
         };
     },
-
-    created() {},
 };
 </script>
 
