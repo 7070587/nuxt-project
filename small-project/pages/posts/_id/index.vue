@@ -15,37 +15,20 @@
 </template>
 
 <script>
-export default {
-    async asyncData(context) {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve({
-                    postData: {
-                        id: "9",
-                        title: `NO!!!__ ${context.route.params.id}`,
-                        previewText: ">_<",
-                        auther: "sci",
-                        updatedDate: new Date(),
-                        content: "some content text ??",
-                        thumbnail:
-                            "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg",
-                    },
-                });
-            }, 1000);
-        }).catch((e) => context.error(new Error()));
+import axios from "axios";
 
-        // return await {
-        //     postData: {
-        //         id: "9",
-        //         title: `NO!!!__ ${context.route.params.id}`,
-        //         previewText: ">_<",
-        //         auther: "sci",
-        //         updatedDate: new Date(),
-        //         content: "some content text ??",
-        //         thumbnail:
-        //             "https://cdn.pixabay.com/photo/2015/03/26/09/47/sky-690293_960_720.jpg",
-        //     },
-        // };
+export default {
+    // data() {
+    //     return {
+    //         postData: {},
+    //     };
+    // },
+
+    async asyncData(context) {
+        const url = `https://nuxt-blog-58689.firebaseio.com/posts/${context.params.id}.json`;
+        let { data } = await axios.get(url).catch((e) => context.error(e));
+
+        return { postData: data };
     },
 };
 </script>
