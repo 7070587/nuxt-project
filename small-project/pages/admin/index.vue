@@ -22,7 +22,7 @@ import AppButton from "@/components/UI/AppButton.vue";
 
 export default {
     comments: { PostList, AppButton },
-    layout: "admin",
+    // layout: "admin",
 
     computed: {
         posts() {
