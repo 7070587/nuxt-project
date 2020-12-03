@@ -12,16 +12,18 @@ import AdminPostForm from "@/components/Admin/AdminPostForm.vue";
 
 export default {
     components: { AdminPostForm },
-    layout: "admin",
+    // layout: "admin",
     methods: {
-        submit(postData) {
+        async submit(postData) {
             const url = "https://nuxt-blog-58689.firebaseio.com/posts.json";
             const param = { ...postData, updatedDate: new Date() };
 
-            axios
-                .post(url, param)
-                .then((res) => console.log("res => ", res))
-                .catch((e) => console.error(e));
+            let res = axios.post(url, param).catch((e) => console.error(e));
+
+            if (res?.statusCode === 200) {
+                this.$router.push("/admin");
+                // console.log("save success => ", res?.data);
+            }
         },
     },
 };
