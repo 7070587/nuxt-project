@@ -15,14 +15,24 @@ export default {
     // layout: "admin",
     methods: {
         async submit(postData) {
-            const url = "https://nuxt-blog-58689.firebaseio.com/posts.json";
+            // way 1
+            // const url = "https://nuxt-blog-58689.firebaseio.com/posts.json";
             const param = { ...postData, updatedDate: new Date() };
 
-            let res = axios.post(url, param).catch((e) => console.error(e));
+            // let res = axios.post(url, param).catch((e) => console.error(e));
 
-            if (res?.statusCode === 200) {
+            // if (res?.statusCode === 200) {
+            //     this.$router.push("/admin");
+            //     // console.log("save success => ", res?.data);
+            // }
+
+            // way 2
+            let data = await this.$axios
+                .$post(`/posts/.json`, param)
+                .catch((e) => context.error(e));
+
+            if (data) {
                 this.$router.push("/admin");
-                // console.log("save success => ", res?.data);
             }
         },
     },

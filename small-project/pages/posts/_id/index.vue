@@ -30,9 +30,15 @@ export default {
     },
 
     async asyncData(context) {
+        // way1
         // const url = `https://nuxt-blog-58689.firebaseio.com/posts/${context.params.id}.json`;
-        const url = `${process.env.baseUrl}/posts/${context.params.id}.json`;
-        let { data } = await axios.get(url).catch((e) => context.error(e));
+        // const url = `${process.env.baseUrl}/posts/${context.params.id}.json`;
+        // let { data } = await axios.get(url).catch((e) => context.error(e));
+
+        // way 2
+        let data = await context.app.$axios
+            .$get(`/posts/${context.params.id}.json`)
+            .catch((e) => context.error(e));
 
         return { postData: data };
     },

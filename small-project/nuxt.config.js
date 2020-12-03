@@ -36,7 +36,12 @@ export default {
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [],
+  modules: ["@nuxtjs/axios"],
+
+  axios: {
+    baseURL: process.env.BASE_URL || "https://nuxt-blog-58689.firebaseio.com" // Used as fallback if no runtime config is provided
+    // credentials: fasle
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
