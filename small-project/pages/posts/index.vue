@@ -10,6 +10,12 @@ import PostList from "@/components/Posts/PostList.vue";
 export default {
     comments: { PostList },
 
+    computed: {
+        posts() {
+            return this.$store.getters.loadedPosts;
+        },
+    },
+
     // fetch
     // async fetch(context) {
     //     // if (context.store.state.posts.length > 0) return null;
@@ -82,12 +88,6 @@ export default {
     //         .then((data) => context.store.commit("setPosts", data.posts))
     //         .catch((e) => context.error(new Error()));
     // },
-
-    computed: {
-        posts() {
-            return this.$store.getters.loadedPosts;
-        },
-    },
 
     // // this asyncData only in nuxt pages
     // async asyncData(context) {

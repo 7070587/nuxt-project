@@ -15,11 +15,11 @@ export default {
     layout: "admin",
     methods: {
         submit(postData) {
+            const url = "https://nuxt-blog-58689.firebaseio.com/posts.json";
+            const param = { ...postData, updatedDate: new Date() };
+
             axios
-                .post(
-                    "https://nuxt-blog-58689.firebaseio.com/posts.json",
-                    postData
-                )
+                .post(url, param)
                 .then((res) => console.log("res => ", res))
                 .catch((e) => console.error(e));
         },
