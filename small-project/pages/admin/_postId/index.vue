@@ -19,7 +19,8 @@ export default {
     // layout: "admin",
 
     async asyncData(context) {
-        const url = `https://nuxt-blog-58689.firebaseio.com/posts/${context.params.postId}.json`;
+        // const url = `https://nuxt-blog-58689.firebaseio.com/posts/${context.params.postId}.json`;
+        const url = `${process.env.baseUrl}/posts/${context.params.postId}.json`;
         let { data } = await axios.get(url).catch((e) => context.error(e));
 
         return { postData: data };
@@ -27,7 +28,8 @@ export default {
 
     methods: {
         async submit(editedPost) {
-            const url = `https://nuxt-blog-58689.firebaseio.com/posts/${this.$route.params.postId}.json`;
+            // const url = `https://nuxt-blog-58689.firebaseio.com/posts/${this.$route.params.postId}.json`;
+            const url = `${process.env.baseUrl}/posts/${this.$route.params.postId}.json`;
             const param = { ...editedPost, updatedDate: new Date() };
 
             let res = await axios

@@ -13,9 +13,9 @@ export const mutations = {
 
 export const actions = {
   async nuxtServerInit(vuexContext, context) {
-    let { data } = await axios
-      .get("https://nuxt-blog-58689.firebaseio.com/posts.json")
-      .catch(e => context.error(e));
+    // https://nuxt-blog-58689.firebaseio.com/posts.json
+    const url = `${process.env.baseUrl}/posts.json`;
+    let { data } = await axios.get(url).catch(e => context.error(e));
 
     const postsArray = [];
     if (data) {

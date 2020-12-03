@@ -24,8 +24,14 @@ export default {
     //     };
     // },
 
+    // update head content
+    head: {
+        title: "Blog Post Detail",
+    },
+
     async asyncData(context) {
-        const url = `https://nuxt-blog-58689.firebaseio.com/posts/${context.params.id}.json`;
+        // const url = `https://nuxt-blog-58689.firebaseio.com/posts/${context.params.id}.json`;
+        const url = `${process.env.baseUrl}/posts/${context.params.id}.json`;
         let { data } = await axios.get(url).catch((e) => context.error(e));
 
         return { postData: data };

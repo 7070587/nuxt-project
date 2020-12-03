@@ -35,5 +35,9 @@ export default {
   modules: [],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {}
+  build: {},
+
+  env: {
+    baseUrl: process.env.BASE_URL || "https://nuxt-blog-58689.firebaseio.com"
+  }
 };
