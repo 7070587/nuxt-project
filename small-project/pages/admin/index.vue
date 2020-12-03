@@ -17,11 +17,7 @@
 
 
 <script>
-import PostList from "@/components/Posts/PostList.vue";
-import AppButton from "@/components/UI/AppButton.vue";
-
 export default {
-    comments: { PostList, AppButton },
     // layout: "admin",
 
     computed: {

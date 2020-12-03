@@ -10,10 +10,8 @@
 </template>
 
 <script>
-import PostList from "@/components/Posts/PostList.vue";
 
 export default {
-    comments: { PostList },
     // data() {
     //     return {
     //         posts: [],
