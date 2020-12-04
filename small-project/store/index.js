@@ -2,7 +2,8 @@ import Vuex from "vuex";
 import axios from "axios";
 
 export const state = () => ({
-  posts: []
+  posts: [],
+  token: null
 });
 
 export const mutations = {
@@ -17,6 +18,10 @@ export const mutations = {
   editPost(state, editedPost) {
     const postIndex = state.posts.findIndex(post => post.id === editedPost.id);
     state.posts[postIndex] = editedPost;
+  },
+
+  setToken(state, token) {
+    state.token = token;
   }
 };
 
@@ -140,6 +145,31 @@ export const actions = {
       .catch(e => console.log(e));
 
     return vuexContext.commit("editPost", postData);
+  },
+
+  async authenticateUser(vuexContext, authData) {
+    const urlLogin = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.firebaseAPIKey}`;
+    const urlSignin = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.firebaseAPIKey}`;
+    const params = {
+      email: authData.email,
+      password: authData.password,
+      returnSecureToken: true
+    };
+
+    let res;
+
+    if (!authData.isLogin) {
+      res = await this.$axios
+        .$post(urlSignin, params)
+        .catch(e => console.log(e));
+    } else {
+      res = await this.$axios
+        .$post(urlLogin, params)
+        .catch(e => console.log(e));
+    }
+
+    console.log("res.idToken => ", res.idToken);
+    if (res.idToken) return vuexContext.commit("setToken", res.idToken);
   },
 
   setPosts(vuexContext, posts) {

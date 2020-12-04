@@ -4,22 +4,22 @@
             <form @submit.prevent="submit">
                 <AppControlInput
                     type="email"
-                    v-model="email"
+                    v-model="authData.email"
                 >E-Mail Address</AppControlInput>
 
                 <AppControlInput
                     type="password"
-                    v-model="password"
+                    v-model="authData.password"
                 >Password</AppControlInput>
 
-                <AppButton type="submit">{{ isLogin ? 'Login' : 'Sign Up' }}</AppButton>
+                <AppButton type="submit">{{ authData.isLogin ? 'Login' : 'Sign Up' }}</AppButton>
 
                 <AppButton
                     type="button"
                     btn-style="inverted"
                     style="margin-left: 10px"
-                    @click="isLogin = !isLogin"
-                >Switch to {{ isLogin ? 'Signup' : 'Login' }}</AppButton>
+                    @click="authData.isLogin = !authData.isLogin"
+                >Switch to {{ authData.isLogin ? 'Signup' : 'Login' }}</AppButton>
 
             </form>
         </div>
@@ -33,35 +33,20 @@ export default {
 
     data() {
         return {
-            isLogin: true,
-            email: "",
-            password: "",
+            authData: {
+                isLogin: true,
+                email: "",
+                password: "",
+            },
         };
     },
 
     methods: {
-        async submit() {
-            const urlLogin = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.firebaseAPIKey}`;
-            const urlSignin = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.firebaseAPIKey}`;
-            const params = {
-                email: this.email,
-                password: this.password,
-                returnSecureToken: true,
-            };
-
-            if (!this.isLogin) {
-                let res = await this.$axios
-                    .$post(urlSignin, params)
-                    .catch((e) => console.log(e));
-
-                if (res.idToken) console.log(" => ", res);
-            } else {
-                let res = await this.$axios
-                    .$post(urlLogin, params)
-                    .catch((e) => console.log(e));
-
-                if (res.idToken) console.log(" => ", res);
-            }
+        submit() {
+            this.$store
+                .dispatch("authenticateUser", this.authData)
+                .then(() => this.$router.push("/admin"))
+                .catch((e) => console.log(e));
         },
     },
 };
