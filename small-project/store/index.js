@@ -131,18 +131,17 @@ export const actions = {
 
   async addPost(vuexContext, postData) {
     const param = { ...postData, updatedDate: new Date() };
-    let data = await this.$axios
-      .$post("/posts.json", param)
-      .catch(e => console.log(e));
+    const rul = `/posts.json?auth=${vuexContext.state.token}`;
+
+    let data = await this.$axios.$post(rul, param).catch(e => console.log(e));
 
     const returnData = { ...param, id: data.name };
     return vuexContext.commit("addPost", returnData);
   },
 
   async editPost(vuexContext, postData) {
-    await this.$axios
-      .$put(`/posts/${postData.id}.json`, postData)
-      .catch(e => console.log(e));
+    const rul = `/posts/${postData.id}.json?auth=${vuexContext.state.token}`;
+    await this.$axios.$put(rul, postData).catch(e => console.log(e));
 
     return vuexContext.commit("editPost", postData);
   },
@@ -180,5 +179,9 @@ export const actions = {
 export const getters = {
   loadedPosts(state) {
     return state.posts;
+  },
+
+  isAuthenticated(state) {
+    return !!state.token;
   }
 };
