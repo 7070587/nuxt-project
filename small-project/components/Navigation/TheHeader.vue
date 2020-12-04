@@ -17,6 +17,9 @@
                     <li class="nav-item">
                         <nuxt-link to="/admin">Admin</nuxt-link>
                     </li>
+                    <li class="nav-item">
+                        <nuxt-link to="/admin/auth">Login</nuxt-link>
+                    </li>
                 </ul>
             </div>
         </header>
