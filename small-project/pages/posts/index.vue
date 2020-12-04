@@ -5,8 +5,8 @@
 </template>
 
 <script>
-
 export default {
+    // middleware: "log",
 
     computed: {
         posts() {

@@ -16,6 +16,7 @@ import TheSidenav from "@/components/Navigation/TheSidenav.vue";
 
 export default {
     comments: { TheHeader, TheSidenav },
+    // middleware: "log",
     data() {
         return {
             displaySideNav: false,
