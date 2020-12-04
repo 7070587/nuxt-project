@@ -27,13 +27,18 @@ export default {
             // }
 
             // way 2
-            let data = await this.$axios
-                .$post(`/posts/.json`, param)
-                .catch((e) => context.error(e));
+            // let data = await this.$axios
+            //     .$post(`/posts/.json`, param)
+            //     .catch((e) => context.error(e));
 
-            if (data) {
+            // if (data) {
+            //     this.$router.push("/admin");
+            // }
+
+            // way 3
+            this.$store.dispatch("addPost", param).then(() => {
                 this.$router.push("/admin");
-            }
+            });
         },
     },
 };

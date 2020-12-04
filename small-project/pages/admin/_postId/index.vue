@@ -30,7 +30,7 @@ export default {
             .$get(`/posts/${context.params.postId}.json`)
             .catch((e) => context.error(e));
 
-        return { postData: data };
+        return { postData: { ...data, id: context.params.postId } };
     },
 
     methods: {
@@ -50,13 +50,19 @@ export default {
             // }
 
             // way 2
-            let data = await this.$axios
-                .$put(`/posts/${this.$route.params.postId}.json`, param)
-                .catch((e) => context.error(e));
+            // const token =
+            // let data = await this.$axios
+            //     .$put(`/posts/${this.$route.params.postId}.json?auth=`, param)
+            //     .catch((e) => context.error(e));
 
-            if (data) {
+            // if (data) {
+            //     this.$router.push("/admin");
+            // }
+
+            // way 3
+            this.$store.dispatch("editPost", param).then(() => {
                 this.$router.push("/admin");
-            }
+            });
         },
     },
 };
