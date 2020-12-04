@@ -7,7 +7,16 @@ export const state = () => ({
 
 export const mutations = {
   setPosts(state, posts) {
-    state.loadedPosts = posts;
+    state.posts = posts;
+  },
+
+  addPost(state, post) {
+    state.posts.push(post);
+  },
+
+  editPost(state, editedPost) {
+    const postIndex = state.posts.findIndex(post => post.id === editedPost.id);
+    state.posts[postIndex] = editedPost;
   }
 };
 
@@ -115,6 +124,24 @@ export const actions = {
   //     });
   //   },
 
+  async addPost(vuexContext, postData) {
+    const param = { ...postData, updatedDate: new Date() };
+    let data = await this.$axios
+      .$post("/posts.json", param)
+      .catch(e => console.log(e));
+
+    const returnData = { ...param, id: data.name };
+    return vuexContext.commit("addPost", returnData);
+  },
+
+  async editPost(vuexContext, postData) {
+    await this.$axios
+      .$put(`/posts/${postData.id}.json`, postData)
+      .catch(e => console.log(e));
+
+    return vuexContext.commit("editPost", postData);
+  },
+
   setPosts(vuexContext, posts) {
     vuexContext.commit("setPosts", posts);
   }
@@ -122,6 +149,6 @@ export const actions = {
 
 export const getters = {
   loadedPosts(state) {
-    return state.loadedPosts;
+    return state.posts;
   }
 };
