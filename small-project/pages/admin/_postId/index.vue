@@ -60,9 +60,11 @@ export default {
             // }
 
             // way 3
-            this.$store.dispatch("editPost", param).then(() => {
-                this.$router.push("/admin");
-            });
+
+            this.$store
+                .dispatch("editPost", param)
+                .then(() => this.$router.push("/admin"))
+                .catch((e) => console.log(e));
         },
     },
 };

@@ -36,9 +36,10 @@ export default {
             // }
 
             // way 3
-            this.$store.dispatch("addPost", param).then(() => {
-                this.$router.push("/admin");
-            });
+            this.$store
+                .dispatch("addPost", param)
+                .then(() => this.$router.push("/admin"))
+                .catch((e) => console.log(e));
         },
     },
 };
