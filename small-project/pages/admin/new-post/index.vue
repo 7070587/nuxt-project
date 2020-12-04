@@ -13,6 +13,7 @@ import AdminPostForm from "@/components/Admin/AdminPostForm.vue";
 export default {
     components: { AdminPostForm },
     // layout: "admin",
+    middleware: ["auth"],
     methods: {
         async submit(postData) {
             // way 1
