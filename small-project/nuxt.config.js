@@ -1,5 +1,6 @@
 const pkg = require("./package");
 const bodyParser = require("body-parser");
+const axios = require("axios");
 
 export default {
   //   mode: "spa",
@@ -71,5 +72,47 @@ export default {
   //     middleware: "log"
   //   },
 
-  serverMiddleware: [bodyParser.json(), "@/api"]
+  serverMiddleware: [bodyParser.json(), "@/api"],
+
+  //  For using nuxt generate, your have to set target: 'static'
+  target: "static",
+
+  generate: {
+    routes: async () => {
+      const url = `https://nuxt-blog-58689.firebaseio.com/posts.json`;
+      let { data } = await axios.get(url);
+      const routes = [];
+      (Object.keys(data) || []).forEach(key =>
+        routes.push({
+          route: "/posts/" + key,
+          payload: { postData: data[key] }
+        })
+      );
+      return routes;
+    }
+  }
+
+  //   generate: {
+  //     routes() {
+  //       return axios
+  //         .get(`https://nuxt-blog-58689.firebaseio.com/posts.json`)
+  //         .then(res => {
+  //           //   (Object.keys(res.data) || []).forEach(key =>
+  //           //      routes.push({
+  //           //       route: "/posts/" + key,
+  //           //       payload: { postData: res.data[key] }
+  //           //     });
+  //           //   );
+
+  //           const routes = [];
+  //           for (const key in res.data) {
+  //             routes.push({
+  //               route: "/posts/" + key,
+  //               payload: { postData: res.data[key] }
+  //             });
+  //           }
+  //           return routes;
+  //         });
+  //     }
+  //   }
 };
