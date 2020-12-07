@@ -1,4 +1,8 @@
+const pkg = require("./package");
+const bodyParser = require("body-parser");
+
 export default {
+  //   mode: "spa",
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: "My Blog",
@@ -22,6 +26,13 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: ["@/assets/css/main.css"],
+
+  // Customize the progress-bar color
+  loading: { color: "#2ed573", height: "4px", duration: 5000 },
+  //   loadingIndicator: {
+  //     name: "circle",
+  //     color: "#2ed573"
+  //   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: ["@/plugins/core-components.js", "@/plugins/date-filter.js"],
@@ -51,10 +62,10 @@ export default {
     firebaseAPIKey: "AIzaSyDW1RhPI9iQb7sz_5ddbF21Iq1dAKaUWKg"
   },
 
-  transition: {
+  pageTransition: {
     name: "fade",
     mode: "out-in"
-  }
+  },
 
   //   router: {
   //     middleware: "log"
