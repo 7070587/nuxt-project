@@ -184,6 +184,10 @@ export const actions = {
       Cookie.set("c-token", idToken);
       Cookie.set("c-time", time);
 
+      this.$axios.$post("http://localhost:3000/api/track-data", {
+        data: "Aauthenticated !!"
+      });
+
       // not this, because in server
       //   vuexContext.dispatch("setLogoutTimer", expiresIn * 1000);
       vuexContext.commit("setToken", idToken);

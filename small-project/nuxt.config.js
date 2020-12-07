@@ -58,5 +58,7 @@ export default {
 
   //   router: {
   //     middleware: "log"
-  //   }
+  //   },
+
+  serverMiddleware: [bodyParser.json(), "@/api"]
 };
