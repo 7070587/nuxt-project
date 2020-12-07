@@ -184,14 +184,16 @@ export const actions = {
       Cookie.set("c-token", idToken);
       Cookie.set("c-time", time);
 
-      vuexContext.dispatch("setLogoutTimer", expiresIn * 1000);
+      // not this, because in server
+      //   vuexContext.dispatch("setLogoutTimer", expiresIn * 1000);
       vuexContext.commit("setToken", idToken);
     }
   },
 
-  setLogoutTimer(vuexContext, duration) {
-    setTimeout(() => vuexContext.commit("clearToken"), duration);
-  },
+  // not this, because in server
+  //   setLogoutTimer(vuexContext, duration) {
+  //     setTimeout(() => vuexContext.commit("clearToken"), duration);
+  //   },
 
   initAuth(vuexContext, req) {
     let time, token;
@@ -216,12 +218,17 @@ export const actions = {
     } else {
       token = localStorage.getItem("token");
       time = localStorage.getItem("time");
+    }
 
-      if (new Date().getTime() > time || !token) return false;
+    if (new Date().getTime() > +time || !token) {
+      console.log("no token / time out ");
+      vuexContext.commit("clearToken");
+      return false;
     }
 
     vuexContext.commit("setToken", token);
-    vuexContext.dispatch("setLogoutTimer", +time - new Date().getTime());
+    // not this, because in server
+    // vuexContext.dispatch("setLogoutTimer", +time - new Date().getTime());
   },
 
   setPosts(vuexContext, posts) {
