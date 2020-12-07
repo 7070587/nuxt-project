@@ -239,8 +239,10 @@ export const actions = {
     Cookie.remove("c-time");
 
     // remove data in localStorage
-    localStorage.removeItem("token");
-    localStorage.removeItem("time");
+    if (process.client) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("time");
+    }
   },
 
   setPosts(vuexContext, posts) {
