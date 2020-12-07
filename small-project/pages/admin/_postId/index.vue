@@ -17,7 +17,7 @@ import AdminPostForm from "@/components/Admin/AdminPostForm.vue";
 export default {
     components: { AdminPostForm },
     // layout: "admin",
-    middleware: ["auth"],
+    middleware: ["check-auth", "auth"],
 
     async asyncData(context) {
         // const url = `https://nuxt-blog-58689.firebaseio.com/posts/${context.params.postId}.json`;
