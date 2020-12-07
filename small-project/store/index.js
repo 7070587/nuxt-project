@@ -222,13 +222,25 @@ export const actions = {
 
     if (new Date().getTime() > +time || !token) {
       console.log("no token / time out ");
-      vuexContext.commit("clearToken");
+      vuexContext.dispatch("logout");
       return false;
     }
 
     vuexContext.commit("setToken", token);
     // not this, because in server
     // vuexContext.dispatch("setLogoutTimer", +time - new Date().getTime());
+  },
+
+  logout(vuexContext) {
+    vuexContext.commit("clearToken");
+
+    // remove data in Cookie
+    Cookie.remove("c-token");
+    Cookie.remove("c-time");
+
+    // remove data in localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("time");
   },
 
   setPosts(vuexContext, posts) {
