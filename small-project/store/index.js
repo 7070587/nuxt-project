@@ -219,7 +219,7 @@ export const actions = {
       if (c_time) return false;
 
       time = c_time.split("=")[1];
-    } else {
+    } else if (process.client) {
       token = localStorage.getItem("token");
       time = localStorage.getItem("time");
     }
