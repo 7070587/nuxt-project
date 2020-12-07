@@ -1,5 +1,6 @@
 import Vuex from "vuex";
 import axios from "axios";
+import Cookie from "js-cookie";
 
 export const state = () => ({
   posts: [],
@@ -22,6 +23,10 @@ export const mutations = {
 
   setToken(state, token) {
     state.token = token;
+  },
+
+  clearToken(state) {
+    state.token = null;
   }
 };
 
@@ -56,7 +61,7 @@ export const actions = {
         })
       );
     }
-    return vuexContext.commit("setPosts", postsArray);
+    vuexContext.commit("setPosts", postsArray);
   },
 
   // nuxt only, can init once server data at first
@@ -136,14 +141,14 @@ export const actions = {
     let data = await this.$axios.$post(rul, param).catch(e => console.log(e));
 
     const returnData = { ...param, id: data.name };
-    return vuexContext.commit("addPost", returnData);
+    vuexContext.commit("addPost", returnData);
   },
 
   async editPost(vuexContext, postData) {
     const rul = `/posts/${postData.id}.json?auth=${vuexContext.state.token}`;
     await this.$axios.$put(rul, postData).catch(e => console.log(e));
 
-    return vuexContext.commit("editPost", postData);
+    vuexContext.commit("editPost", postData);
   },
 
   async authenticateUser(vuexContext, authData) {
@@ -167,8 +172,56 @@ export const actions = {
         .catch(e => console.log(e));
     }
 
-    console.log("res.idToken => ", res.idToken);
-    if (res.idToken) return vuexContext.commit("setToken", res.idToken);
+    if (res.idToken) {
+      let { idToken, expiresIn } = res;
+      const time = new Date().getTime() + expiresIn * 1000;
+
+      // save in localStorage
+      localStorage.setItem("token", idToken);
+      localStorage.setItem("time", time);
+
+      // save in Cookie
+      Cookie.set("c-token", idToken);
+      Cookie.set("c-time", time);
+
+      vuexContext.dispatch("setLogoutTimer", expiresIn * 1000);
+      vuexContext.commit("setToken", idToken);
+    }
+  },
+
+  setLogoutTimer(vuexContext, duration) {
+    setTimeout(() => vuexContext.commit("clearToken"), duration);
+  },
+
+  initAuth(vuexContext, req) {
+    let time, token;
+    if (req) {
+      if (req.headers.cookie) return false;
+
+      const c_token = req.headers.cookie
+        .split(";")
+        .find(x => x.trim().startsWith("c-token="));
+
+      if (c_token) return false;
+
+      token = c_token.split("=")[1];
+
+      const c_time = req.headers.cookie
+        .split(";")
+        .find(x => x.trim().startsWith("c-time="));
+
+      if (c_time) return false;
+
+      time = c_time.split("=")[1];
+    } else {
+      token = localStorage.getItem("token");
+      time = localStorage.getItem("time");
+
+      if (new Date().getTime() > time || !token) return false;
+    }
+
+    vuexContext.commit("setToken", token);
+    vuexContext.dispatch("setLogoutTimer", +time - new Date().getTime());
   },
 
   setPosts(vuexContext, posts) {
