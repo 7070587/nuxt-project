@@ -2,6 +2,8 @@
     <div class="admin-page">
         <section class="new-post">
             <AppButton @click="$router.push('/admin/new-post')">Create Post</AppButton>
+            <span class='space'></span>
+            <AppButton @click="logout">Logout</AppButton>
         </section>
 
         <section class="existing-posts">
@@ -26,6 +28,13 @@ export default {
             return this.$store.getters.loadedPosts;
         },
     },
+
+    methods: {
+        logout() {
+            this.$store.dispatch("logout");
+            this.$router.push("admin/auth");
+        },
+    },
 };
 </script>
 
@@ -43,5 +52,10 @@ export default {
 
 .existing-posts h1 {
     text-align: center;
+}
+
+.space {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 </style>
