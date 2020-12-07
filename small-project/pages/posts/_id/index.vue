@@ -30,6 +30,12 @@ export default {
     },
 
     async asyncData(context) {
+        if (context.payload) {
+            return {
+                postData: context.payload.postData,
+            };
+        }
+
         // way1
         // const url = `https://nuxt-blog-58689.firebaseio.com/posts/${context.params.id}.json`;
         // const url = `${process.env.baseUrl}/posts/${context.params.id}.json`;
