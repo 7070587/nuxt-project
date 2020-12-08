@@ -26,7 +26,7 @@ export default {
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ["@/assets/css/main.css"],
+  css: ["~assets/css/main.css"],
 
   // Customize the progress-bar color
   loading: { color: "#2ed573", height: "4px", duration: 5000 },
@@ -36,7 +36,7 @@ export default {
   //   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ["@/plugins/core-components.js", "@/plugins/date-filter.js"],
+  plugins: ["@/plugins/core-components.js", "~plugins/date-filter.js"],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -91,28 +91,4 @@ export default {
       return routes;
     }
   }
-
-  //   generate: {
-  //     routes() {
-  //       return axios
-  //         .get(`https://nuxt-blog-58689.firebaseio.com/posts.json`)
-  //         .then(res => {
-  //           //   (Object.keys(res.data) || []).forEach(key =>
-  //           //      routes.push({
-  //           //       route: "/posts/" + key,
-  //           //       payload: { postData: res.data[key] }
-  //           //     });
-  //           //   );
-
-  //           const routes = [];
-  //           for (const key in res.data) {
-  //             routes.push({
-  //               route: "/posts/" + key,
-  //               payload: { postData: res.data[key] }
-  //             });
-  //           }
-  //           return routes;
-  //         });
-  //     }
-  //   }
 };
