@@ -4,7 +4,7 @@
             <h1 class="post-title"> {{ postData.title }} </h1>
             <div class="post-details">
                 <div class="post-detail">Last updated on {{ postData.updatedDate | date }}</div>
-                <div class="post-detail">Written by {{ postData.auther }}</div>
+                <div class="post-detail">Written by {{ postData.author }}</div>
             </div>
             <p class="post-content">{{ postData.content }}</p>
         </section>
